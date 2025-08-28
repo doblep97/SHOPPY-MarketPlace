@@ -1,5 +1,6 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
+import { Badge } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Toolbar from "@mui/material/Toolbar";
@@ -18,16 +19,24 @@ import Avatar from "@mui/material/Avatar";
 import FolderIcon from "@mui/icons-material/Folder";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const Header = () => {
+import totalPrice from "../utils/totalPriceCart";
+
+const Header = ({ cart }) => {
   // Estado para abrir/cerrar el Drawer del carrito
   const [openCart, setOpenCart] = useState(false);
   const [dense] = useState(false);
 
-  // Productos mock para ver la estructura del Drawer
-  const products = [
-    { name: "Auriculares Pro", price: 99 },
-    { name: "Mochila Nike", price: 49 },
-  ];
+  //El total de productos/items que hay en el carrito y se muestra en el mismo
+  const totalItems = cart.reduce((acc, item) => acc + item.units, 0);
+
+  //Paso a la función que calcula el precio total el array de profuctos en el carrito
+  const totalPriceProducts = totalPrice(cart);
+
+  //Formatea el numero a euros
+  const EUR_FORMAT = new Intl.NumberFormat("es-ES", {
+    style: "currency",
+    currency: "EUR",
+  });
 
   return (
     <>
@@ -45,9 +54,20 @@ const Header = () => {
           <IconButton
             aria-label="abrir carrito"
             onClick={() => setOpenCart(true)}
-            sx={{ color: "#ff7940", marginLeft: "auto" }}
+            sx={{ marginLeft: "auto" }}
           >
-            <ShoppingCartIcon />
+            <Badge
+              badgeContent={totalItems}
+              showZero
+              sx={{
+                "& .MuiBadge-badge": {
+                  backgroundColor: "white", // fondo del círculo
+                  color: "#ff7940", // color del número
+                },
+              }}
+            >
+              <ShoppingCartIcon sx={{ color: "#ff7940" }} />
+            </Badge>
           </IconButton>
         </Toolbar>
       </AppBar>
@@ -72,57 +92,79 @@ const Header = () => {
           Carrito
         </Typography>
         <Divider />
+        {cart.length === 0 && (
+          <Typography textAlign={"center"} variant="h5" marginTop={3}>
+            Tu carrito está vacío
+          </Typography>
+        )}
 
-        {/* Lista de pedidos:
-              - flex:1 para ocupar espacio disponible
-              - overflow:auto para que la lista haga scroll */}
-        <Box sx={{ flex: 1, overflow: "auto", mt: 2 }}>
-          <List dense={dense}>
-            {products.map((product) => (
-              <ListItem
-                key={product.name} // Esto será el ID cuando tengas datos reales
-                sx={{
-                  backgroundColor: "#FFF1DA", // Estilo suave de item (puedes cambiarlo)
-                  borderRadius: 3,
-                  mb: 1,
-                }}
-                // Acción secundaria (borrar) — lógica
-                secondaryAction={
-                  <IconButton edge="end" aria-label="delete">
-                    <DeleteIcon />
-                  </IconButton>
-                }
-              >
-                <ListItemAvatar>
-                  <Avatar>
-                    <FolderIcon />
-                  </Avatar>
-                </ListItemAvatar>
+        {/* Si hay productos en la lista, aparece */}
+        {cart.length > 0 && (
+          <Box sx={{ flex: 1, overflow: "auto", mt: 2 }}>
+            {/* flex:1 para ocupar espacio disponible y overflow:auto para que la lista haga scroll */}
+            <List dense={dense}>
+              {cart.map((cart) => (
+                <ListItem
+                  key={cart.id}
+                  sx={{
+                    backgroundColor: "#FFF1DA", // Estilo suave de item (puedes cambiarlo)
+                    borderRadius: 3,
+                    mb: 1,
+                  }}
+                  // Acción secundaria (borrar) — lógica
+                  secondaryAction={
+                    <IconButton edge="end" aria-label="delete">
+                      <DeleteIcon />
+                    </IconButton>
+                  }
+                >
+                  <ListItemAvatar>
+                    <Avatar>
+                      <FolderIcon />
+                    </Avatar>
+                  </ListItemAvatar>
 
-                <ListItemText
-                  primary={product.name}
-                  secondary={`${product.price}€`}
-                />
-              </ListItem>
-            ))}
-          </List>
-        </Box>
+                  <ListItemText
+                    primary={cart.name}
+                    secondary={`Unidades: ${cart.units} - ${EUR_FORMAT.format(
+                      cart.price * cart.units
+                    )}`}
+                  />
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+        )}
 
         {/* Total y boton de tramitar pedido*/}
-        <Box
-          sx={{
-            position: "sticky",
-            bottom: 0,
-            backgroundColor: "background.paper",
-            pt: 1,
-          }}
-        >
-          <Divider />
-          <Typography sx={{ mb: 1, mt: 2 }}>Total: -</Typography>
-          <Button variant="outlined" fullWidth>
-            Tramitar pedido
-          </Button>
-        </Box>
+        {cart.length > 0 && (
+          <Box
+            sx={{
+              position: "sticky",
+              bottom: 0,
+              backgroundColor: "background.paper",
+              pt: 1,
+            }}
+          >
+            <Divider />
+            <Typography
+              variant={"h6"}
+              sx={{
+                mb: 1,
+                mt: 2,
+                p: 1,
+                textAlign: "center",
+                borderRadius: 3,
+                backgroundColor: "#ff7940",
+              }}
+            >
+              Total de compra: {EUR_FORMAT.format(totalPriceProducts)}
+            </Typography>
+            <Button variant="outlined" fullWidth>
+              Tramitar pedido
+            </Button>
+          </Box>
+        )}
       </Drawer>
     </>
   );

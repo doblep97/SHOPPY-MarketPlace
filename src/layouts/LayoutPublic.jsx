@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 import { useState } from "react";
+
+const initialDataCart = JSON.parse(localStorage.getItem("dataProducts")) || [];
 
 const LayoutPublic = () => {
   // El componente <LayoutPublic /> engloba a las rutas anidadas, actúa como estructura base
   // En <Outlet /> se renderiza el componente hijo correspondiente a la ruta y El <footer> es compartido por
   // todas las subrutas (Inicio, Contacto, Blog)
 
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(initialDataCart);
+  useEffect(() => {
+    localStorage.setItem("dataProducts", JSON.stringify(cart));
+  }, [cart]);
 
   //Añade un unidades de un producto al carrito
   const addToCart = (product) => {

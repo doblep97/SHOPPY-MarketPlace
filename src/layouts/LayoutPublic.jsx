@@ -10,6 +10,7 @@ const LayoutPublic = () => {
 
   const [cart, setCart] = useState([]);
 
+  //Añade un unidades de un producto al carrito
   const addToCart = (product) => {
     setCart((previous) => {
       //Buscamos si el producto que compramos ya está en el carrito ('.find' devuelve el primer item que cumple su condición)
@@ -25,11 +26,46 @@ const LayoutPublic = () => {
     });
   };
 
+  //Añade 1 unidad al producto
+  const updateProduct = (product) => {
+    setCart((previous) =>
+      previous.map((item) =>
+        item.id === product.id ? { ...item, units: item.units + 1 } : item
+      )
+    );
+  };
+
+  //Elimina 1 unidad del producto
+  const deleteProduct = (product) => {
+    setCart((previous) => {
+      //Encuentra el produt seleccionado
+      const actualProduct = previous.find((item) => item.id === product.id);
+      //Si el produt seleccionado es mayor de 1, le quitamos 1 unidad
+
+      if (actualProduct.units > 1) {
+        return previous.map((item) =>
+          item.id === product.id ? { ...item, units: item.units - 1 } : item
+        );
+      }
+      //Si el produt seleccionado es 1, le eliminamos
+      return previous.filter((item) => item.id !== product.id);
+    });
+  };
+
+  //Elimina el producto del carrito
+  const removeProduct = (product) =>
+    setCart((previous) => previous.filter((item) => item.id !== product.id));
+
   console.log(cart);
 
   return (
     <>
-      <Header cart={cart} />
+      <Header
+        cart={cart}
+        onRemoveProduct={removeProduct}
+        onAddProduct={updateProduct}
+        onDeleteProduct={deleteProduct}
+      />
       {/*Outlet context ->  cualquier página hija (Catalogo, Products) podrá usar la función*/}
       <Outlet context={{ addToCart }} />
       <h4>footer</h4>

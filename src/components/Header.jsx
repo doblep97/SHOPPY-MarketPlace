@@ -21,7 +21,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 import totalPrice from "../utils/totalPriceCart";
 
-const Header = ({ cart }) => {
+const Header = ({ cart, onRemoveProduct, onAddProduct, onDeleteProduct }) => {
   // Estado para abrir/cerrar el Drawer del carrito
   const [openCart, setOpenCart] = useState(false);
   const [dense] = useState(false);
@@ -103,17 +103,20 @@ const Header = ({ cart }) => {
           <Box sx={{ flex: 1, overflow: "auto", mt: 2 }}>
             {/* flex:1 para ocupar espacio disponible y overflow:auto para que la lista haga scroll */}
             <List dense={dense}>
-              {cart.map((cart) => (
+              {cart.map((cartProduct) => (
                 <ListItem
-                  key={cart.id}
+                  key={cartProduct.id}
                   sx={{
                     backgroundColor: "#FFF1DA", // Estilo suave de item (puedes cambiarlo)
                     borderRadius: 3,
                     mb: 1,
                   }}
-                  // Acción secundaria (borrar) — lógica
                   secondaryAction={
-                    <IconButton edge="end" aria-label="delete">
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      onClick={() => onRemoveProduct(cartProduct)}
+                    >
                       <DeleteIcon />
                     </IconButton>
                   }
@@ -124,12 +127,46 @@ const Header = ({ cart }) => {
                     </Avatar>
                   </ListItemAvatar>
 
-                  <ListItemText
-                    primary={cart.name}
-                    secondary={`Unidades: ${cart.units} - ${EUR_FORMAT.format(
-                      cart.price * cart.units
-                    )}`}
-                  />
+                  <Box sx={{ flex: 1, display: "flex", alignItems: "center" }}>
+                    <ListItemText
+                      primary={cartProduct.name}
+                      secondary={`${EUR_FORMAT.format(
+                        cartProduct.price * cartProduct.units
+                      )}`}
+                    />
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 0.5,
+                        mt: 0.5,
+                      }}
+                    >
+                      <IconButton
+                        size="small"
+                        sx={{ backgroundColor: "#ff7940" }}
+                        onClick={() => onDeleteProduct(cartProduct)}
+                      >
+                        –
+                      </IconButton>
+                      <Typography
+                        sx={{
+                          minWidth: 20,
+                          textAlign: "center",
+                          fontSize: 14,
+                        }}
+                      >
+                        {cartProduct.units}
+                      </Typography>
+                      <IconButton
+                        size="small"
+                        sx={{ backgroundColor: "#ff7940" }}
+                        onClick={() => onAddProduct(cartProduct)}
+                      >
+                        +
+                      </IconButton>
+                    </Box>
+                  </Box>
                 </ListItem>
               ))}
             </List>

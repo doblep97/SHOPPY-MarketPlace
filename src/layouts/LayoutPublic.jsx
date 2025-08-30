@@ -11,6 +11,7 @@ const LayoutPublic = () => {
   // todas las subrutas (Inicio, Contacto, Blog)
 
   const [cart, setCart] = useState(initialDataCart);
+
   useEffect(() => {
     localStorage.setItem("dataProducts", JSON.stringify(cart));
   }, [cart]);
@@ -72,7 +73,7 @@ const LayoutPublic = () => {
         onDeleteProduct={deleteProduct}
       />
       {/*Outlet context ->  cualquier página hija (Catalogo, Products) podrá usar la función*/}
-      <Outlet context={{ addToCart }} />
+      <Outlet context={{ addToCart, cart, deleteProduct, updateProduct }} />
       <h4>footer</h4>
     </>
   );

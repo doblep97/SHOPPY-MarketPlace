@@ -18,7 +18,8 @@ import ListItemText from "@mui/material/ListItemText";
 import Avatar from "@mui/material/Avatar";
 import FolderIcon from "@mui/icons-material/Folder";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import totalPrice from "../utils/totalPriceCart";
 
 const Header = ({ cart, onRemoveProduct, onAddProduct, onDeleteProduct }) => {
@@ -144,26 +145,42 @@ const Header = ({ cart, onRemoveProduct, onAddProduct, onDeleteProduct }) => {
                     >
                       <IconButton
                         size="small"
-                        sx={{ backgroundColor: "#ff7940" }}
+                        sx={{
+                          backgroundColor: "#ff7940",
+                          width: 26,
+                          height: 26,
+                          borderRadius: "50%",
+                          color: "white",
+                          "&:hover": { backgroundColor: "#e6642e" }, // hover más oscuro
+                        }}
                         onClick={() => onDeleteProduct(cartProduct)}
                       >
-                        –
+                        <RemoveIcon fontSize="small" />
                       </IconButton>
+
                       <Typography
                         sx={{
                           minWidth: 20,
                           textAlign: "center",
-                          fontSize: 14,
+                          fontSize: 18,
                         }}
                       >
                         {cartProduct.units}
                       </Typography>
+
                       <IconButton
                         size="small"
-                        sx={{ backgroundColor: "#ff7940" }}
+                        sx={{
+                          backgroundColor: "#ff7940",
+                          width: 26,
+                          height: 26,
+                          borderRadius: "50%",
+                          color: "white",
+                          "&:hover": { backgroundColor: "#e6642e" },
+                        }}
                         onClick={() => onAddProduct(cartProduct)}
                       >
-                        +
+                        <AddIcon fontSize="small" />
                       </IconButton>
                     </Box>
                   </Box>
@@ -189,15 +206,20 @@ const Header = ({ cart, onRemoveProduct, onAddProduct, onDeleteProduct }) => {
               sx={{
                 mb: 1,
                 mt: 2,
-                p: 1,
-                textAlign: "center",
+
+                textAlign: "right",
                 borderRadius: 3,
-                backgroundColor: "#ff7940",
               }}
             >
-              Total de compra: {EUR_FORMAT.format(totalPriceProducts)}
+              Total: {EUR_FORMAT.format(totalPriceProducts)}
             </Typography>
-            <Button variant="outlined" fullWidth>
+            <Button
+              component={Link}
+              to={"/cart"}
+              sx={{ backgroundColor: "#ff7940", color: "white" }}
+              fullWidth
+              onClick={() => setOpenCart(false)}
+            >
               Tramitar pedido
             </Button>
           </Box>

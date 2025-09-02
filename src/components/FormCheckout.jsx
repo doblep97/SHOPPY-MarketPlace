@@ -12,7 +12,10 @@ import {
   InputAdornment,
 } from "@mui/material";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 
+// ...
 const provinciasSpain = [
   "Álava",
   "Albacete",
@@ -68,6 +71,10 @@ const provinciasSpain = [
 ];
 
 const FormCheckout = () => {
+  const { handleDataFormCheckout } = useOutletContext();
+
+  const navigate = useNavigate();
+
   //submit del formulario
   const [submitedError, setSubmitedError] = useState(false);
 
@@ -223,7 +230,10 @@ const FormCheckout = () => {
       return;
     }
     setSubmitedError(false);
-    console.log(dataForm);
+    // Lo guarda en Layout (y sessionStorage dentro de esa función)
+    handleDataFormCheckout(dataForm);
+    //Navegamos a la página del pago
+    navigate("/payment");
   };
 
   return (

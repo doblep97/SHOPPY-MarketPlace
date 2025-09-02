@@ -1,14 +1,13 @@
 import { useState, useMemo } from "react";
-import Grid from "@mui/material/Grid";
 import {
   Box,
+  Grid,
   Typography,
   Divider,
   StepLabel,
   Stepper,
   Step,
   FormControl,
-  FormLabel,
   RadioGroup,
   FormControlLabel,
   Radio,
@@ -33,7 +32,7 @@ const SHIPPING_PRICES = {
 };
 
 const Checkout = () => {
-  const { cart } = useOutletContext();
+  const { cart, handleTotalPrice } = useOutletContext();
 
   // Estado del tipo de envío
   const [shipping, setShipping] = useState("standard");
@@ -52,6 +51,8 @@ const Checkout = () => {
   const subtotal = totalPrice(cart);
   const shippingCost = SHIPPING_PRICES[shipping];
   const grandTotal = subtotal + shippingCost;
+
+  handleTotalPrice(grandTotal);
 
   return (
     <>

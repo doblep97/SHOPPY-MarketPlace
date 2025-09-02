@@ -6,6 +6,7 @@ import Catalogo from "./pages/Catalogo";
 import Products from "./pages/Products";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import Payment from "./pages/Payment";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route path="/product/:id" element={<Products />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
           <Route path="/checkout" element={<Checkout />}></Route>
+          <Route path="/payment" element={<Payment />}></Route>
         </Route>
       </Routes>
     </>

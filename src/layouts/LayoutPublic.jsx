@@ -5,16 +5,48 @@ import { useState } from "react";
 
 const initialDataCart = JSON.parse(localStorage.getItem("dataProducts")) || [];
 
+// Función para extraer los datos del usuario si recarga "/payment"
+const getInitialCheckoutData = () => {
+  try {
+    return JSON.parse(localStorage.getItem("checkoutData")) || {};
+  } catch {
+    return null;
+  }
+};
+
 const LayoutPublic = () => {
   // El componente <LayoutPublic /> engloba a las rutas anidadas, actúa como estructura base
   // En <Outlet /> se renderiza el componente hijo correspondiente a la ruta y El <footer> es compartido por
   // todas las subrutas (Inicio, Contacto, Blog)
 
   const [cart, setCart] = useState(initialDataCart);
+  const [totalPriceCart, setTotalPriceCart] = useState("");
+
+  // ✅ Info del formulario de checkout
+  const [dataFormCheckout, setDataFormCheckout] = useState(
+    getInitialCheckoutData
+  );
 
   useEffect(() => {
     localStorage.setItem("dataProducts", JSON.stringify(cart));
   }, [cart]);
+
+  useEffect(() => {
+    if (dataFormCheckout !== null) {
+      localStorage.setItem("checkoutData", JSON.stringify(dataFormCheckout));
+    }
+  }, [dataFormCheckout]);
+
+  const handleTotalPrice = (totalPrice) => {
+    setTotalPriceCart(totalPrice);
+  };
+
+  const handleDataFormCheckout = (dataForm) => {
+    setDataFormCheckout(dataForm);
+    // ya no es estrictamente necesario este setItem si tienes el useEffect de arriba,
+    // pero puedes dejarlo si quieres persistencia inmediata:
+    localStorage.setItem("checkoutData", JSON.stringify(dataForm));
+  };
 
   //Añade un unidades de un producto al carrito
   const addToCart = (product) => {
@@ -73,7 +105,18 @@ const LayoutPublic = () => {
         onDeleteProduct={deleteProduct}
       />
       {/*Outlet context ->  cualquier página hija (Catalogo, Products) podrá usar la función*/}
-      <Outlet context={{ addToCart, cart, deleteProduct, updateProduct }} />
+      <Outlet
+        context={{
+          addToCart,
+          cart,
+          deleteProduct,
+          updateProduct,
+          handleDataFormCheckout, // función que establece el "dataFormCheckout"
+          dataFormCheckout, // datos del form Checkout
+          handleTotalPrice, //Controla el precio total (productos + envío)
+          totalPriceCart,
+        }}
+      />
       <h4>footer</h4>
     </>
   );

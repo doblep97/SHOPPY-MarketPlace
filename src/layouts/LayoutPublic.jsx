@@ -94,7 +94,11 @@ const LayoutPublic = () => {
   const removeProduct = (product) =>
     setCart((previous) => previous.filter((item) => item.id !== product.id));
 
-  console.log(cart);
+  const clearCart = () => {
+    setCart([]);
+    localStorage.removeItem("checkoutData");
+    localStorage.removeItem("dataProducts");
+  };
 
   return (
     <>
@@ -115,6 +119,7 @@ const LayoutPublic = () => {
           dataFormCheckout, // datos del form Checkout
           handleTotalPrice, //Controla el precio total (productos + envío)
           totalPriceCart,
+          clearCart,
         }}
       />
       <h4>footer</h4>

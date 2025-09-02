@@ -1,25 +1,28 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import { Badge } from "@mui/material";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import Drawer from "@mui/material/Drawer";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemText from "@mui/material/ListItemText";
-import Avatar from "@mui/material/Avatar";
-import FolderIcon from "@mui/icons-material/Folder";
+import {
+  AppBar,
+  Badge,
+  Box,
+  Button,
+  Toolbar,
+  IconButton,
+  Drawer,
+  Typography,
+  Divider,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Avatar,
+} from "@mui/material";
+
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import FolderIcon from "@mui/icons-material/Folder";
+
 import totalPrice from "../utils/totalPriceCart";
 
 const Header = ({ cart, onRemoveProduct, onAddProduct, onDeleteProduct }) => {
@@ -27,8 +30,11 @@ const Header = ({ cart, onRemoveProduct, onAddProduct, onDeleteProduct }) => {
   const [openCart, setOpenCart] = useState(false);
   const [dense] = useState(false);
 
+  //Compruebo que es un array (Al hacer el pago inicializo vacio el 'cart' y es mas seguro controlandolo asi para que no falle)
+  const cleanCart = Array.isArray(cart) ? cart : [];
+
   //El total de productos/items que hay en el carrito y se muestra en el mismo
-  const totalItems = cart.reduce((acc, item) => acc + item.units, 0);
+  const totalItems = cleanCart.reduce((acc, item) => acc + item.units, 0);
 
   //Paso a la función que calcula el precio total el array de profuctos en el carrito
   const totalPriceProducts = totalPrice(cart);
@@ -93,14 +99,14 @@ const Header = ({ cart, onRemoveProduct, onAddProduct, onDeleteProduct }) => {
           Carrito
         </Typography>
         <Divider />
-        {cart.length === 0 && (
+        {cleanCart.length === 0 && (
           <Typography textAlign={"center"} variant="h5" marginTop={3}>
             Tu carrito está vacío
           </Typography>
         )}
 
         {/* Si hay productos en la lista, aparece */}
-        {cart.length > 0 && (
+        {cleanCart.length > 0 && (
           <Box sx={{ flex: 1, overflow: "auto", mt: 2 }}>
             {/* flex:1 para ocupar espacio disponible y overflow:auto para que la lista haga scroll */}
             <List dense={dense}>
@@ -191,7 +197,7 @@ const Header = ({ cart, onRemoveProduct, onAddProduct, onDeleteProduct }) => {
         )}
 
         {/* Total y boton de tramitar pedido*/}
-        {cart.length > 0 && (
+        {cleanCart.length > 0 && (
           <Box
             sx={{
               position: "sticky",

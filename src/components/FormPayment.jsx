@@ -28,8 +28,6 @@ const styleModal = {
   textAlign: "center",
 };
 
-//TODO Completar el Modal (boton que al apretar vuelva a inicio)
-
 const FormPayment = () => {
   const [cardNumber, setCardNumber] = useState("");
   const [nameTitularTarjet, setNameTitularTarjet] = useState("");
@@ -41,7 +39,7 @@ const FormPayment = () => {
   const [showNumberTarjet, setShowNumberTarjet] = useState(true);
   const [showCVV, setShowCVV] = useState(true);
 
-  const { totalPriceCart } = useOutletContext();
+  const { totalPriceCart, clearCart } = useOutletContext();
 
   // Elimina los espacion del numero de la tarjeta para valorar el '.length' original
   const rawCard = cardNumber.replace(/\s/g, "");
@@ -304,6 +302,7 @@ const FormPayment = () => {
           <Button
             component={Link}
             to={"/"}
+            onClick={clearCart} // vacía el carrito al volver a inicio
             sx={{
               backgroundColor: "#ff7940",
               color: "white",

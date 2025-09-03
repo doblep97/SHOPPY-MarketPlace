@@ -43,6 +43,7 @@ const ProductCard = ({ product }) => {
           variant="contained"
           fullWidth
           onClick={() => addToCart(product)}
+          sx={{ backgroundColor: "#e6642e" }}
         >
           Añadir al carrito
         </Button>

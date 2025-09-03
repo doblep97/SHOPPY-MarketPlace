@@ -135,9 +135,13 @@ const Header = ({ cart, onRemoveProduct, onAddProduct, onDeleteProduct }) => {
                   }
                 >
                   <ListItemAvatar>
-                    <Avatar>
-                      <FolderIcon />
-                    </Avatar>
+                    <Avatar
+                      src={cartProduct.image}
+                      alt={cartProduct.name}
+                      variant="rounded"
+                      sx={{ width: 56, height: 56, borderRadius: 4, mr: 1 }}
+                      imgProps={{ loading: "lazy" }}
+                    />
                   </ListItemAvatar>
 
                   <Box sx={{ flex: 1, display: "flex", alignItems: "center" }}>

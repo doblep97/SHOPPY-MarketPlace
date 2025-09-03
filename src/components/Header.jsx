@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import {
   AppBar,
@@ -33,11 +33,17 @@ const Header = ({ cart, onRemoveProduct, onAddProduct, onDeleteProduct }) => {
   //Compruebo que es un array (Al hacer el pago inicializo vacio el 'cart' y es mas seguro controlandolo asi para que no falle)
   const cleanCart = Array.isArray(cart) ? cart : [];
 
+  //"useMemo" guarda en caché el resultado de una función mientras sus dependencias no cambien.
+  // Sino se renderizarían cada vez que el Header se renderizaría, haciendo el render mas lento y pesado
+
   //El total de productos/items que hay en el carrito y se muestra en el mismo
-  const totalItems = cleanCart.reduce((acc, item) => acc + item.units, 0);
+  const totalItems = useMemo(
+    () => cleanCart.reduce((acc, item) => acc + item.units, 0),
+    [cleanCart]
+  );
 
   //Paso a la función que calcula el precio total el array de profuctos en el carrito
-  const totalPriceProducts = totalPrice(cart);
+  const totalPriceProducts = useMemo(() => totalPrice(cleanCart), [cleanCart]);
 
   //Formatea el numero a euros
   const EUR_FORMAT = new Intl.NumberFormat("es-ES", {
@@ -48,7 +54,7 @@ const Header = ({ cart, onRemoveProduct, onAddProduct, onDeleteProduct }) => {
   return (
     <>
       {/* Header: color de fondo según tu comentario (#fceadc) */}
-      <AppBar position="static" sx={{ bgcolor: "#fceadc" }}>
+      <AppBar position="sticky" sx={{ bgcolor: "#fceadc", top: 0 }}>
         <Toolbar>
           {/* Logo: enlace a "/" como comentaste */}
           <Link to="/">
@@ -110,7 +116,7 @@ const Header = ({ cart, onRemoveProduct, onAddProduct, onDeleteProduct }) => {
           <Box sx={{ flex: 1, overflow: "auto", mt: 2 }}>
             {/* flex:1 para ocupar espacio disponible y overflow:auto para que la lista haga scroll */}
             <List dense={dense}>
-              {cart.map((cartProduct) => (
+              {cleanCart.map((cartProduct) => (
                 <ListItem
                   key={cartProduct.id}
                   sx={{

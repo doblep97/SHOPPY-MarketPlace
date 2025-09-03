@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useState } from "react";
+import { Box } from "@mui/material";
 
 const initialDataCart = JSON.parse(localStorage.getItem("dataProducts")) || [];
 
@@ -103,27 +104,49 @@ const LayoutPublic = () => {
 
   return (
     <>
-      <Header
-        cart={cart}
-        onRemoveProduct={removeProduct}
-        onAddProduct={updateProduct}
-        onDeleteProduct={deleteProduct}
-      />
-      {/*Outlet context ->  cualquier página hija (Catalogo, Products) podrá usar la función*/}
-      <Outlet
-        context={{
-          addToCart,
-          cart,
-          deleteProduct,
-          updateProduct,
-          handleDataFormCheckout, // función que establece el "dataFormCheckout"
-          dataFormCheckout, // datos del form Checkout
-          handleTotalPrice, //Controla el precio total (productos + envío)
-          totalPriceCart,
-          clearCart,
+      <Box
+        sx={{
+          minHeight: "100dvh", // altura mínima pantalla (mejor en móviles)
+          display: "flex",
+          flexDirection: "column",
+          bgcolor: "background.default",
         }}
-      />
-      <Footer />
+      >
+        {/* HEADER */}
+        <Header
+          cart={cart}
+          onRemoveProduct={removeProduct}
+          onAddProduct={updateProduct}
+          onDeleteProduct={deleteProduct}
+        />
+
+        {/* MAIN: ocupa el espacio restante entre header y footer */}
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            overflow: "auto",
+          }}
+        >
+          {/*Outlet context ->  cualquier página hija (Catalogo, Products) podrá usar la función*/}
+
+          <Outlet
+            context={{
+              addToCart,
+              cart,
+              deleteProduct,
+              updateProduct,
+              handleDataFormCheckout, // función que establece el "dataFormCheckout"
+              dataFormCheckout, // datos del form Checkout
+              handleTotalPrice, //Controla el precio total (productos + envío)
+              totalPriceCart,
+              clearCart,
+            }}
+          />
+        </Box>
+
+        <Footer />
+      </Box>
     </>
   );
 };

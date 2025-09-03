@@ -3,6 +3,8 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useOutletContext } from "react-router-dom";
 
+//TODO hacer imagen del product y boton mas responsiva en pantallas pequeñas
+
 const Product = () => {
   const { id } = useParams(); // lee el parámetro dinámico ":id" en concreto
 
@@ -31,7 +33,7 @@ const Product = () => {
       </Box>
       <Box
         display={"flex"}
-        flexDirection={"column"}
+        flexDirection={{ xs: "row", md: "column" }}
         justifyContent={"center"}
         gap={5}
       >
@@ -49,6 +51,7 @@ const Product = () => {
             backgroundColor: "#ff7940",
             color: "white",
             "&:hover": { backgroundColor: "#e6642e" },
+            width: { xs: "40%", md: "100%" },
           }}
         >
           Añadir al carrito

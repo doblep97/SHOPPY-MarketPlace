@@ -17,7 +17,7 @@ const ProductCard = ({ product }) => {
   });
 
   return (
-    <Card sx={{ borderRadius: 3, bgcolor: "grey.300" }}>
+    <Card sx={{ borderRadius: 3, bgcolor: "#fceadc" }}>
       <Link
         to={`/product/${product.id}`}
         style={{ textDecoration: "none", color: "inherit" }}

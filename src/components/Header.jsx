@@ -21,7 +21,6 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import FolderIcon from "@mui/icons-material/Folder";
 
 import totalPrice from "../utils/totalPriceCart";
 
@@ -58,7 +57,7 @@ const Header = ({ cart, onRemoveProduct, onAddProduct, onDeleteProduct }) => {
         <Toolbar>
           {/* Logo: enlace a "/" como comentaste */}
           <Link to="/">
-            <img src="/logo2.png" alt="Logo SHOPPY" height={40} />
+            <img src="/logo2.png" alt="Logo SHOPPY" height={38} />
           </Link>
 
           {/* Botón del carrito:

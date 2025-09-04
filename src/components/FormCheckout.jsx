@@ -359,7 +359,14 @@ const FormCheckout = () => {
           </Box>
         </Box>
 
-        <Divider sx={{ borderColor: "black" }} />
+        <Divider
+          sx={{
+            borderColor: "#f7896eff",
+            borderWidth: 2,
+            borderRadius: 2,
+            mt: 2,
+          }}
+        />
 
         <Box>
           <Typography variant="h6" sx={{ mb: 1 }}>
@@ -515,7 +522,14 @@ const FormCheckout = () => {
           </Box>
         </Box>
 
-        <Divider sx={{ borderColor: "black" }} />
+        <Divider
+          sx={{
+            borderColor: "#f7896eff",
+            borderWidth: 2,
+            borderRadius: 2,
+            mt: 2,
+          }}
+        />
         <Button
           sx={{
             backgroundColor: "#ff7940",

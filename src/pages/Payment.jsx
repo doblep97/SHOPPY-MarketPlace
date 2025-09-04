@@ -55,18 +55,12 @@ const Payment = () => {
         }}
       >
         {/*Detalles de envío y contacto */}
-        <Grid
-          size={{ xs: 12, md: 5, xl: 5 }}
-          sx={{ border: 1.5, borderRadius: 3 }}
-        >
+        <Grid size={{ xs: 12, md: 5, xl: 5 }} sx={{ width: "max-content" }}>
           <Details />
         </Grid>
 
         {/* Pago*/}
-        <Grid
-          size={{ xs: 12, md: 7, xl: 7 }}
-          sx={{ border: 1.5, borderRadius: 3 }}
-        >
+        <Grid size={{ xs: 12, md: 7, xl: 7 }}>
           <Box display={"flex"} justifyContent={"space-between"}>
             <Typography variant="h5" sx={{ p: 2 }}>
               Pago
@@ -76,7 +70,9 @@ const Payment = () => {
             </Typography>
           </Box>
 
-          <Divider sx={{ borderColor: "black" }} />
+          <Divider
+            sx={{ borderColor: "#f7896eff", borderWidth: 5, borderRadius: 2 }}
+          />
           <FormPayment />
         </Grid>
       </Grid>

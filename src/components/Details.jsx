@@ -21,7 +21,14 @@ const Details = () => {
           <Typography>{detailsContact.dni}</Typography>
           <Typography>{detailsContact.telephone}</Typography>
         </Box>
-        <Divider sx={{ borderColor: "black", my: 1 }} />
+        <Divider
+          sx={{
+            borderColor: "#f7896eff",
+            borderWidth: 3,
+            borderRadius: 2,
+            my: 1,
+          }}
+        />
         <Box display={"flex"} flexDirection={"column"} gap={0.5}>
           <Typography variant="h6" sx={{ pt: 1, fontWeight: "bold" }}>
             Detalles de envío

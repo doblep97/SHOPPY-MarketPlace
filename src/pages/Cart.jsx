@@ -63,14 +63,17 @@ const Cart = () => {
             alignItems={"start"}
             sx={{ py: 5, maxWidth: "80%", margin: "auto" }}
           >
-            <Grid
-              size={{ xs: 12, md: 8 }}
-              sx={{ border: 1.5, borderRadius: 3 }}
-            >
+            <Grid size={{ xs: 12, md: 8 }}>
               <Typography variant="h5" sx={{ p: 2 }}>
                 Carrito
               </Typography>
-              <Divider sx={{ borderColor: "black" }} />
+              <Divider
+                sx={{
+                  borderColor: "#f7896eff",
+                  borderWidth: 5,
+                  borderRadius: 2,
+                }}
+              />
               <Box
                 display={"flex"}
                 flexDirection={"column"}
@@ -161,14 +164,17 @@ const Cart = () => {
                 ))}
               </Box>
             </Grid>
-            <Grid
-              size={{ xs: 12, md: 4 }}
-              sx={{ border: 1.5, borderRadius: 3 }}
-            >
+            <Grid size={{ xs: 12, md: 4 }}>
               <Typography variant="h5" sx={{ p: 2 }}>
                 Resumen
               </Typography>
-              <Divider sx={{ borderColor: "black" }} />
+              <Divider
+                sx={{
+                  borderColor: "#f7896eff",
+                  borderWidth: 5,
+                  borderRadius: 2,
+                }}
+              />
               <Typography variant="h4" textAlign="center" sx={{ p: 2 }}>
                 {EUR_FORMAT.format(totalPrice(cart))}
               </Typography>

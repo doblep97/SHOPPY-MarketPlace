@@ -77,21 +77,30 @@ const Checkout = () => {
         sx={{ py: 5, maxWidth: "80%", margin: "auto" }}
       >
         {/* Columna: Detalles de envío */}
-        <Grid size={{ xs: 12, md: 8 }} sx={{ border: 1.5, borderRadius: 3 }}>
-          <Typography variant="h5" sx={{ p: 2 }}>
+        <Grid size={{ xs: 12, md: 8 }} sx={{}}>
+          <Typography
+            variant="h5"
+            sx={{
+              p: 2,
+            }}
+          >
             Detalles de envío
           </Typography>
-          <Divider sx={{ borderColor: "black" }} />
+          <Divider
+            sx={{ borderColor: "#f7896eff", borderWidth: 5, borderRadius: 2 }}
+          />
 
           <FormCheckout />
         </Grid>
 
         {/* Columna: Resumen */}
-        <Grid size={{ xs: 12, md: 4 }} sx={{ border: 1.5, borderRadius: 3 }}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Typography variant="h5" sx={{ p: 2 }}>
             Resumen
           </Typography>
-          <Divider sx={{ borderColor: "black" }} />
+          <Divider
+            sx={{ borderColor: "#f7896eff", borderWidth: 5, borderRadius: 2 }}
+          />
 
           {/* Lista de productos */}
           <Box display="flex" flexDirection="column" gap={1} p={2}>
@@ -114,7 +123,14 @@ const Checkout = () => {
                 </Box>
               </Box>
             ))}
-            <Divider sx={{ borderColor: "black", mt: 2 }} />
+            <Divider
+              sx={{
+                borderColor: "#f7896eff",
+                borderWidth: 2,
+                borderRadius: 2,
+                mt: 2,
+              }}
+            />
           </Box>
 
           {/* Tipo de envío */}
@@ -143,7 +159,13 @@ const Checkout = () => {
             </FormControl>
           </Box>
 
-          <Divider sx={{ borderColor: "black" }} />
+          <Divider
+            sx={{
+              borderColor: "#f0d2cbff",
+              borderWidth: 2,
+              borderRadius: 2,
+            }}
+          />
 
           {/* Totales */}
           <Box px={2} py={1}>
@@ -160,7 +182,14 @@ const Checkout = () => {
               </Typography>
             </Box>
 
-            <Divider sx={{ my: 1 }} />
+            <Divider
+              sx={{
+                borderColor: "#f0d2cbff",
+                borderWidth: 2,
+                borderRadius: 2,
+                my: 1,
+              }}
+            />
 
             <Box display="flex" justifyContent="space-between">
               <Typography variant="h6">Total</Typography>

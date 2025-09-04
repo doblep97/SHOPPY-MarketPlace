@@ -9,7 +9,7 @@ const Catalogo = () => {
 
   return (
     <>
-      <Container sx={{ py: 3 }}>
+      <Container sx={{ py: 3, width: { xs: "85%", md: "100%" } }}>
         <Grid container spacing={2}>
           {/*  Grid conteneder con todos los productos separados por un espacio de 2 */}
           {products.map((product) => (

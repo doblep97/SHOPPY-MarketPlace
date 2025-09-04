@@ -21,23 +21,27 @@ const Product = () => {
     <Container
       sx={{
         py: 5,
-
+        width: { xs: "75%", md: "100%" },
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
         gap: 4,
         justifyContent: "center",
       }}
     >
-      <Box>
-        <img src={getProduct.image} width={"100%"}></img>
-      </Box>
+      <Box component={"img"} src={getProduct.image}></Box>
       <Box
         display={"flex"}
-        flexDirection={{ xs: "row", md: "column" }}
+        flexDirection={"column"}
         justifyContent={"center"}
-        gap={5}
+        gap={4}
       >
-        <Box sx={{}}>
+        <Box
+          sx={{
+            display: { xs: "flex", md: "block" },
+            justifyContent: { xs: "space-between", md: "center" },
+            alignItems: { xs: "center" },
+          }}
+        >
           <Typography variant="h4">{getProduct.name}</Typography>
           <Typography variant="h6">
             {EUR_FORMAT.format(getProduct.price)}
@@ -51,7 +55,8 @@ const Product = () => {
             backgroundColor: "#ff7940",
             color: "white",
             "&:hover": { backgroundColor: "#e6642e" },
-            width: { xs: "40%", md: "100%" },
+            width: { xs: "60%", md: "100%" },
+            margin: { xs: "auto", md: 0 },
           }}
         >
           Añadir al carrito

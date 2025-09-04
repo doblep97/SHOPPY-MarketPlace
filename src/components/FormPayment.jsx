@@ -17,7 +17,7 @@ const styleModal = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "35%",
+  width: { xs: "75%", md: "35%" },
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
@@ -289,7 +289,7 @@ const FormPayment = () => {
       >
         <Box sx={styleModal}>
           <Typography id="modal-modal-title" variant="h4">
-            ¡Pago realizado!
+            🎉¡Pago realizado!🎉
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             {`Hemos realizado un cargo de ${EUR_FORMAT.format(
